@@ -1,0 +1,13 @@
+﻿################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/ForceSimuliations/bin/Debug
+/ForceSimuliations/obj
+/.vs
+
+/CBLabs.CybozuConnect/bin/Debug
+/CBLabs.CybozuConnect/obj/Debug
+/Cybozu.AppendScheduleDemo/bin/Debug
+/Cybozu.AppendScheduleDemo/obj/Debug
+/Cybozu.AppendScheduleDemo/obj/Debug
