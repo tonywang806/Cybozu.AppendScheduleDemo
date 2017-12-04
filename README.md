@@ -27,6 +27,7 @@ Windows 10 /
 サイボウズ Office Version 10.6.1
 
 ## 使用方法
+「Documents/Cybozu連携説明資料.pptx」にご参照ください。
 
 ## 開発環境
 
