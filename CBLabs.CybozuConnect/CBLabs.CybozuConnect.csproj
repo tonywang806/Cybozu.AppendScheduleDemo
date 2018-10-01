@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="CybozuException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

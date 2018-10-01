@@ -1,0 +1,8 @@
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\bin\Debug\WSDLGeneratorDemo.exe.config
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\bin\Debug\WSDLGeneratorDemo.exe
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\bin\Debug\WSDLGeneratorDemo.pdb
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\bin\Debug\Microsoft.Web.Services2.dll
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\obj\Debug\WSDLGeneratorDemo.csprojResolveAssemblyReference.cache
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\obj\Debug\WSDLGeneratorDemo.csproj.CoreCompileInputs.cache
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\obj\Debug\WSDLGeneratorDemo.exe
+C:\Develop\Cybozu.AppendScheduleDemo\WSDLGeneratorDemo\obj\Debug\WSDLGeneratorDemo.pdb

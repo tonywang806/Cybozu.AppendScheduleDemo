@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CBLabs.CybozuConnect", "CBLabs.CybozuConnect\CBLabs.CybozuConnect.csproj", "{31BA1314-7832-4230-AD26-4368BB240121}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cybozu.AppendScheduleDemo", "Cybozu.AppendScheduleDemo\Cybozu.AppendScheduleDemo.csproj", "{BFEA4B24-27FE-4756-A710-AD336B53541C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSDLGeneratorDemo", "WSDLGeneratorDemo\WSDLGeneratorDemo.csproj", "{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,8 +41,23 @@ Global
 		{BFEA4B24-27FE-4756-A710-AD336B53541C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BFEA4B24-27FE-4756-A710-AD336B53541C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BFEA4B24-27FE-4756-A710-AD336B53541C}.Release|x86.Build.0 = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Debug|x86.Build.0 = Debug|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C56B7C3A-9FB8-4AC4-8D46-66A8F0547DBC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4040EEE8-CEF8-48BF-A189-EB76BB05DAF0}
 	EndGlobalSection
 EndGlobal

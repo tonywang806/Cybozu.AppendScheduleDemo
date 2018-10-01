@@ -22,7 +22,6 @@ namespace CBLabs.CybozuConnect
 
         public Base Base;
         public Schedule Schedule;
-
         public XmlDocument LastXmlDoc;
 
         public static class ErrorCode

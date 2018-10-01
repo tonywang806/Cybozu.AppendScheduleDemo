@@ -1,0 +1,13 @@
+<thread xmlns="http://schemas.cybozu.co.jp/message/2008" id="4-601990" version="1515126441" confirm="true" subject="◆Ranoreexライセンス情報" is_draft="false">
+  <addressee user_id="5356" name="永吉　研二" deleted="false" confirmed="true" />
+  <addressee user_id="10928" name="林　聖洋" deleted="false" confirmed="true" />
+  <addressee user_id="11147" name="早乙女　祥之" deleted="false" confirmed="true" />
+  <addressee user_id="10435" name="王　天義" deleted="false" confirmed="true" />
+  <content body="各位&#xD;&#xA;&#xD;&#xA;ライセンスキーの情報を添付させていただきます。&#xD;&#xA;&#xD;&#xA;お手数ですが、ご確認の程宜しくお願い致します。&#xD;&#xA;&#xD;&#xA;林">
+    <file id="2380297" name="RXP0F-1436-2.pdf" size="180008" mime_type="application/pdf" />
+    <file id="2380301" name="RXR0F-1437-2.pdf" size="179919" mime_type="application/pdf" />
+  </content>
+  <folder id="3959" />
+  <creator user_id="10928" name="林　聖洋" date="2018-01-05T01:00:23Z" />
+  <modifier user_id="5356" name="永吉　研二" date="2018-01-05T01:02:34Z" />
+</thread>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://wsdl.cybozu.co.jp/todo/2008" xmlns:base_services="http://wsdl.cybozu.co.jp/base/2008" xmlns:typens="http://wsdl.cybozu.co.jp/todo/2008/types" xmlns="http://schemas.xmlsoap.org/wsdl/" name="CybozuToDoServices" targetNamespace="http://wsdl.cybozu.co.jp/todo/2008" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://wsdl.cybozu.co.jp/base/2008" location="base.wsdl" />
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:base_types="http://wsdl.cybozu.co.jp/base/2008/types" xmlns:base="http://schemas.cybozu.co.jp/base/2008" xmlns:todo="http://schemas.cybozu.co.jp/todo/2008" targetNamespace="http://wsdl.cybozu.co.jp/todo/2008/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import schemaLocation="base.xsd" namespace="http://schemas.cybozu.co.jp/base/2008" />
+      <xsd:import schemaLocation="todo.xsd" namespace="http://schemas.cybozu.co.jp/todo/2008" />
+      <xsd:import namespace="http://wsdl.cybozu.co.jp/base/2008/types" />
+      <xsd:complexType name="ToDoGetToDosByIdRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_id" type="base:IDType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDosByIdResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoVersionsRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_item" type="base_types:ItemVersionType" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="base:NonBlankStringType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoVersionsResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_item" type="base_types:ItemVersionResultType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoHistoriesByIdRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_history_id" type="base:IDType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoHistoriesByIdResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_history" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoHistoryVersionsRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_history_item" type="base_types:ItemVersionType" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="base:NonBlankStringType" />
+        </xsd:sequence>
+        <xsd:attribute name="start" type="xsd:date" use="required" />
+        <xsd:attribute name="end" type="xsd:date" use="optional" />
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetToDoHistoryVersionsResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_history_item" type="base_types:ItemVersionResultType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoAddToDosRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="request_token" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="add_todo" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoAddToDosResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoModifyToDosRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="request_token" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="modify_todo" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoModifyToDosResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo" type="todo:ToDoType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoRemoveToDosRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="request_token" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_id" type="base:IDType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoHandleToDosRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="request_token" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo_id" type="base:IDType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoGetCategoriesRequestType" />
+      <xsd:complexType name="ToDoGetCategoriesResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="todo:CategoryType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoSetCategoriesRequestType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="request_token" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="todo:CategoryType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ToDoSetCategoriesResponseType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="todo:CategoryType" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ToDoGetToDosByIdRequest">
+    <wsdl:part name="parameters" type="typens:ToDoGetToDosByIdRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDosByIdResponse">
+    <wsdl:part name="returns" type="typens:ToDoGetToDosByIdResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoVersionsRequest">
+    <wsdl:part name="parameters" type="typens:ToDoGetToDoVersionsRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoVersionsResponse">
+    <wsdl:part name="returns" type="typens:ToDoGetToDoVersionsResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoHistoriesByIdRequest">
+    <wsdl:part name="parameters" type="typens:ToDoGetToDoHistoriesByIdRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoHistoriesByIdResponse">
+    <wsdl:part name="returns" type="typens:ToDoGetToDoHistoriesByIdResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoHistoryVersionsRequest">
+    <wsdl:part name="parameters" type="typens:ToDoGetToDoHistoryVersionsRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetToDoHistoryVersionsResponse">
+    <wsdl:part name="returns" type="typens:ToDoGetToDoHistoryVersionsResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoAddToDosRequest">
+    <wsdl:part name="parameters" type="typens:ToDoAddToDosRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoAddToDosResponse">
+    <wsdl:part name="returns" type="typens:ToDoAddToDosResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoModifyToDosRequest">
+    <wsdl:part name="parameters" type="typens:ToDoModifyToDosRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoModifyToDosResponse">
+    <wsdl:part name="returns" type="typens:ToDoModifyToDosResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoRemoveToDosRequest">
+    <wsdl:part name="parameters" type="typens:ToDoRemoveToDosRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoHandleToDosRequest">
+    <wsdl:part name="parameters" type="typens:ToDoHandleToDosRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetCategoriesRequest">
+    <wsdl:part name="parameters" type="typens:ToDoGetCategoriesRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoGetCategoriesResponse">
+    <wsdl:part name="returns" type="typens:ToDoGetCategoriesResponseType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoSetCategoriesRequest">
+    <wsdl:part name="parameters" type="typens:ToDoSetCategoriesRequestType" />
+  </wsdl:message>
+  <wsdl:message name="ToDoSetCategoriesResponse">
+    <wsdl:part name="returns" type="typens:ToDoSetCategoriesResponseType" />
+  </wsdl:message>
+  <wsdl:portType name="ToDoPort">
+    <wsdl:operation name="ToDoGetToDosById">
+      <documentation>
+        This API gets the ToDos by ToDo id.
+        The client sends list of "todo_id" for specify the ToDo to search.
+      </documentation>
+      <wsdl:input message="tns:ToDoGetToDosByIdRequest" />
+      <wsdl:output message="tns:ToDoGetToDosByIdResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoVersions">
+      <documentation>
+        This API gets the modified ToDos.
+        "todo" is a list of ToDo's that a client has.
+      </documentation>
+      <wsdl:input message="tns:ToDoGetToDoVersionsRequest" />
+      <wsdl:output message="tns:ToDoGetToDoVersionsResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoHistoriesById">
+      <documentation>
+        This API gets the ToDo histories by ToDo id.
+        The client sends list of "todo_id" for specify the ToDo history to search.
+      </documentation>
+      <wsdl:input message="tns:ToDoGetToDoHistoriesByIdRequest" />
+      <wsdl:output message="tns:ToDoGetToDoHistoriesByIdResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoHistoryVersions">
+      <documentation>
+        This API gets the modified ToDo histories.
+        "todo" is a list of ToDo histories' that a client has.
+      </documentation>
+      <wsdl:input message="tns:ToDoGetToDoHistoryVersionsRequest" />
+      <wsdl:output message="tns:ToDoGetToDoHistoryVersionsResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoAddToDos">
+      <documentation>
+        This API adds the ToDos.
+      </documentation>
+      <wsdl:input message="tns:ToDoAddToDosRequest" />
+      <wsdl:output message="tns:ToDoAddToDosResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoModifyToDos">
+      <documentation>
+        This API modifies the ToDos.
+      </documentation>
+      <wsdl:input message="tns:ToDoModifyToDosRequest" />
+      <wsdl:output message="tns:ToDoModifyToDosResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoRemoveToDos">
+      <documentation>
+        This API removes the ToDos.
+      </documentation>
+      <wsdl:input message="tns:ToDoRemoveToDosRequest" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoHandleToDos">
+      <documentation>
+        This API handles the ToDos.
+      </documentation>
+      <wsdl:input message="tns:ToDoHandleToDosRequest" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetCategories">
+      <documentation>
+        This API get the ToDo categories.
+      </documentation>
+      <wsdl:input message="tns:ToDoGetCategoriesRequest" />
+      <wsdl:output message="tns:ToDoGetCategoriesResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+    <wsdl:operation name="ToDoSetCategories">
+      <documentation>
+        This API set the ToDo categories.
+      </documentation>
+      <wsdl:input message="tns:ToDoSetCategoriesRequest" />
+      <wsdl:output message="tns:ToDoSetCategoriesResponse" />
+      <wsdl:fault name="CybozuError" message="base_services:Fault" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ToDoBinding" type="tns:ToDoPort">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="ToDoGetToDosById">
+      <soap12:operation soapAction="ToDoGetToDosById" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoVersions">
+      <soap12:operation soapAction="ToDoGetToDoVersions" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoHistoriesById">
+      <soap12:operation soapAction="ToDoGetToDoHistoriesById" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetToDoHistoryVersions">
+      <soap12:operation soapAction="ToDoGetToDoHistoryVersions" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoAddToDos">
+      <soap12:operation soapAction="ToDoAddToDos" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoModifyToDos">
+      <soap12:operation soapAction="ToDoModifyToDos" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoRemoveToDos">
+      <soap12:operation soapAction="ToDoRemoveToDos" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoHandleToDos">
+      <soap12:operation soapAction="ToDoHandleToDos" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoGetCategories">
+      <soap12:operation soapAction="ToDoGetCategories" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ToDoSetCategories">
+      <soap12:operation soapAction="ToDoSetCategories" soapActionRequired="true" />
+      <wsdl:input>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:output>
+      <wsdl:fault name="CybozuError">
+        <soap12:body use="literal" namespace="http://wsdl.cybozu.co.jp/todo/2008" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

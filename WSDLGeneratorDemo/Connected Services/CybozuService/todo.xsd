@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://schemas.cybozu.co.jp/todo/2008" xmlns:base="http://schemas.cybozu.co.jp/base/2008" elementFormDefault="qualified" targetNamespace="http://schemas.cybozu.co.jp/todo/2008" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="base.xsd" namespace="http://schemas.cybozu.co.jp/base/2008" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      Definition for ToDo application data format
+      Copyright (c) 2010 Cybozu, Inc.
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:element name="todo">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" maxOccurs="1" ref="todos" />
+        <xsd:element minOccurs="0" maxOccurs="1" ref="categories" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="todos">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" maxOccurs="unbounded" name="todo" type="ToDoType" />
+      </xsd:sequence>
+    </xsd:complexType>
+    <xsd:key name="todo_key">
+      <xsd:selector xpath="todo" />
+      <xsd:field xpath="@id" />
+    </xsd:key>
+  </xsd:element>
+  <xsd:complexType name="ToDoType">
+    <xsd:attribute name="id" type="base:IDType" use="required" />
+    <xsd:attribute name="version" type="base:VersionType" use="required" />
+    <xsd:attribute name="name" type="base:NonBlankStringType" use="required" />
+    <xsd:attribute name="priority" type="base:NonBlankStringType" use="required" />
+    <xsd:attribute name="description" type="xsd:string" use="optional" />
+    <xsd:attribute name="category" type="xsd:string" use="optional" />
+    <xsd:attribute name="end_date" type="xsd:date" use="optional" />
+    <xsd:attribute name="handled" type="xsd:boolean" use="optional" />
+    <xsd:attribute name="handle_date" type="xsd:date" use="optional" />
+  </xsd:complexType>
+  <xsd:element name="categories">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" maxOccurs="unbounded" name="category" type="CategoryType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="CategoryType">
+    <xsd:attribute name="name" type="base:NonBlankStringType" use="required" />
+    <xsd:attribute name="order" type="xsd:unsignedLong" use="optional" />
+  </xsd:complexType>
+</xsd:schema>
