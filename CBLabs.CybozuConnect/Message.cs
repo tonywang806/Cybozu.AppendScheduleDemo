@@ -3,38 +3,39 @@ using System.Xml;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Text;
 
 namespace CBLabs.CybozuConnect
 {
-
     public class MessageThread
     {
+        //thread @Id
         private string idField;
-
+        //thread @Version
         private string versionField;
-
+        //thread @Subject ⇒ 題名
         private string subjectField;
-
+        //thread @confirm ⇒ 閲覧状況を確認するかどうか
         private bool confirmField;
-
+        //thread @is_draft ⇒ 下書きかどうか
         private bool is_draftField;
-
+        //thread/addressee/ ⇒ 宛先の情報
         private AddresseeCollection addressesField=new AddresseeCollection();
-
+        //thread/content/ ⇒ メッセージの本文
         private Content contentField;
-
+        //thread/content/ ⇒ メッセージのフォローの情報
         private ThreadFollowCollection followField = new ThreadFollowCollection();
-
+        //thread/folder/⇒ メッセージが存在するフォルダの情報
         private StringCollection folderField=new StringCollection();
-
+        //thread/folder/⇒ メッセージの作成者
         private ChangeLog creatorField;
-
+        //thread/folder/⇒ メッセージの更新者
         private ChangeLog modifierField;
 
         public MessageThread()
         {
         }
-            public MessageThread(XmlNode eventNode)
+        public MessageThread(XmlNode eventNode)
         {
             this.id = Utility.SafeAttribute(eventNode, "id");
             this.version = Utility.SafeAttribute(eventNode, "version");
@@ -82,8 +83,8 @@ namespace CBLabs.CybozuConnect
                 {
                     ThreadFollow follow = new ThreadFollow()
                     {
-                        id = Utility.SafeAttribute(childNode, "id"),
-                        number = Utility.SafeAttribute(childNode, "number")
+                        Id = Utility.SafeAttribute(childNode, "id"),
+                        Number = Utility.SafeAttribute(childNode, "number")
                     };
 
                     this.followField.Add(follow);
@@ -148,7 +149,7 @@ namespace CBLabs.CybozuConnect
             }
         }
 
-        public ThreadFollowCollection follow
+        public ThreadFollowCollection follows
         {
             get
             {
@@ -258,7 +259,6 @@ namespace CBLabs.CybozuConnect
         }
 
     }
-  
     public class Address
     {
 
@@ -291,15 +291,24 @@ namespace CBLabs.CybozuConnect
             }
         }
     }
-
     public class AddresseeCollection : KeyedCollection<string, Address>
     {
         protected override string GetKeyForItem(Address item)
         {
             return item.user_id;
         }
-    }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (Address item in this) {
+                sb.Append(item.name);
+                sb.Append(";");
+            }
+            return sb.ToString();
+        }
+
+    }
     public class Content
     {
         private ContentFilesCollection fileField = new ContentFilesCollection();
@@ -315,7 +324,6 @@ namespace CBLabs.CybozuConnect
 
         public string Html_body { get => html_bodyField; set => html_bodyField = value; }
     }
-
     public class ContentFile
     {
 
@@ -324,8 +332,6 @@ namespace CBLabs.CybozuConnect
         private string nameField;
 
         private ulong sizeField;
-
-        private bool sizeFieldSpecified;
 
         private string mime_typeField;
 
@@ -365,18 +371,6 @@ namespace CBLabs.CybozuConnect
             }
         }
 
-        public bool sizeSpecified
-        {
-            get
-            {
-                return this.sizeFieldSpecified;
-            }
-            set
-            {
-                this.sizeFieldSpecified = value;
-            }
-        }
-
         public string mime_type
         {
             get
@@ -390,7 +384,6 @@ namespace CBLabs.CybozuConnect
         }
 
     }
-
     public class ContentFilesCollection : KeyedCollection<string, ContentFile>
     {
         protected override string GetKeyForItem(ContentFile item)
@@ -398,47 +391,63 @@ namespace CBLabs.CybozuConnect
             return item.id;
         }
     }
-
     public class ThreadFollow
     {
+        //follow @id ⇒ メッセージを識別するID
+        private string id;
+        //follow @number ⇒ フォロー番号
+        private string number;
+        //follow @text ⇒ フォローの内容
+        private string text;
+        //follow @html_text ⇒ フォローの内容(書式編集)
+        private string html_text;
+        //follow/creator ⇒ フォローの作成者情報を格納する要素
+        private ChangeLog creatorField;
+        //follow/file ⇒ 添付ファイルの情報を格納する要素
+        private ContentFilesCollection fileField = new ContentFilesCollection();
 
-        private string idField;
+        public string Id { get => id; set => id = value; }
+        public string Number { get => number; set => number = value; }
+        public string Text { get => text; set => text = value; }
+        public string Html_text { get => html_text; set => html_text = value; }
+        public ChangeLog CreatorField { get => creatorField; set => creatorField = value; }
+        public ContentFilesCollection FileField { get => fileField; set => fileField = value; }
 
-        private string numberField;
+        public ThreadFollow() {
+        }
 
-        public string id
+        public ThreadFollow(XmlNode eventNode)
         {
-            get
+            this.id = Utility.SafeAttribute(eventNode, "id");
+            this.number = Utility.SafeAttribute(eventNode, "number");
+            this.text = Utility.SafeAttribute(eventNode, "text");
+
+            foreach (XmlNode childNode in eventNode.ChildNodes)
             {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
+                //  creator
+                if (childNode.Name == "creator")
+                {
+                    ChangeLog creator = new ChangeLog()
+                    {
+                        user_id = Utility.SafeAttribute(childNode, "user_id"),
+                        name = Utility.SafeAttribute(childNode, "name"),
+                        date = Utility.SafeAttribute(childNode, "date")
+
+                    };
+
+                    this.CreatorField = creator;
+                }
             }
         }
 
-        public string number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-
-    }
+     }
     public class ThreadFollowCollection : KeyedCollection<string, ThreadFollow>
     {
         protected override string GetKeyForItem(ThreadFollow item)
         {
-            return item.id;
+            return item.Id;
         }
     }
-
     public class ChangeLog
     {
 
@@ -511,6 +520,8 @@ namespace CBLabs.CybozuConnect
             XmlElement result = this.App.Exec("Message", "MessageCreateThreads", parameters);
             return new MessageThread(result.FirstChild);
         }
+
+
         public MessageThread MessageGetThreadsById(string messageId)
         {
             if (string.IsNullOrEmpty(messageId))
@@ -532,7 +543,8 @@ namespace CBLabs.CybozuConnect
                 //XmlNodeList eventNodeList = resultNode.SelectNodes("//ns:thread", xmlNsManager);
                 XmlNode eventNode = resultNode.FirstChild;
 
-                if (eventNode != null) {
+                if (eventNode != null)
+                {
                     MessageThread thread;
                     thread = new MessageThread(eventNode);
                     return thread;
@@ -540,6 +552,62 @@ namespace CBLabs.CybozuConnect
 
             }
             catch (Exception ex) {
+                Console.WriteLine(ex.StackTrace);
+            }
+            return null;
+
+        }
+
+        public MessageThread MessageAddFollows(string messageId,string content)
+        {
+            ListDictionary parameters = new ListDictionary();
+            ListDictionary idParam = new ListDictionary();
+            ListDictionary followParam = new ListDictionary();
+            followParam["text"] = content;
+            idParam["thread_id"] = messageId;
+            idParam["follow"] = followParam;
+            parameters["add_follows"] = idParam;
+            XmlElement result = this.App.Exec("Message", "MessageAddFollows", parameters);
+            return new MessageThread(result.FirstChild);
+        }
+
+
+            public ThreadFollowCollection MessageGetFollows(string messageId, string offset = "0" ,string limit="10")
+        {
+            if (string.IsNullOrEmpty(messageId))
+            {
+                throw new CybozuException("Message ID is not specified.");
+            }
+
+            ListDictionary parameters = new ListDictionary();
+            parameters["thread_id"] = messageId;
+            parameters["offset"] = "0";
+            parameters["limit"] = "10";
+
+            XmlElement resultNode = this.App.Query("Message", "MessageGetFollows", parameters);
+            try
+            {
+                XmlNamespaceManager xmlNsManager = new XmlNamespaceManager(resultNode.OwnerDocument.NameTable);
+                xmlNsManager.AddNamespace("ns", "http://schemas.cybozu.co.jp/message/2008");
+
+                //XmlNodeList eventNodeList = resultNode.SelectNodes("//ns:thread", xmlNsManager);
+                XmlNodeList eventNodeList = resultNode.SelectNodes("//ns:follow",xmlNsManager);
+                ThreadFollowCollection tfcList = new ThreadFollowCollection();
+                foreach (XmlNode eventNode in eventNodeList)
+                {
+                    if (eventNode != null)
+                    {
+                        ThreadFollow follow;
+                        follow = new ThreadFollow(eventNode);
+                        tfcList.Add(follow);
+                    }
+                }
+
+                return tfcList;
+
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.StackTrace);
             }
             return null;
@@ -589,8 +657,7 @@ namespace CBLabs.CybozuConnect
             {
                 content["body"] = message.content.Body;
             }
-
-            if (message.content.Html_body != string.Empty)
+            else
             {
                 content["body"] = "";
                 content["html_body"] = message.content.Html_body;
