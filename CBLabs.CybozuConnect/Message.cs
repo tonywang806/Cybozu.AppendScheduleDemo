@@ -266,6 +266,8 @@ namespace CBLabs.CybozuConnect
 
         private string nameField;
 
+        private bool confirmedField;
+
 
         public string user_id
         {
@@ -290,6 +292,8 @@ namespace CBLabs.CybozuConnect
                 this.nameField = value;
             }
         }
+
+        public bool confirmed { get => confirmedField; set => confirmedField = value; }
     }
     public class AddresseeCollection : KeyedCollection<string, Address>
     {
@@ -622,8 +626,8 @@ namespace CBLabs.CybozuConnect
             message_thread["id"] = modify ? message.id : "dummy";
             message_thread["version"] = modify ? message.version : "999999";
             message_thread["subject"] = message.subject ;
-            message_thread["confirm"] = modify ? message.confirm?"true":"false":"false";
-            message_thread["is_draft"] = modify ? message.is_draft ? "true" : "false" : "false";
+            message_thread["confirm"] = message.confirm?"true":"false";
+            message_thread["is_draft"] = message.is_draft ? "true" : "false";
             message_thread["addressee"] = PrepareAddresses(message);
             message_thread["content"] = PrepareContent(message);
 
@@ -642,6 +646,7 @@ namespace CBLabs.CybozuConnect
                 address["xmlns"] = "http://schemas.cybozu.co.jp/message/2008";
                 address["user_id"] = addr.user_id;
                 address["name"] = addr.name;
+                address["confirmed"] = addr.confirmed;
                 address["delete"] = "false";
                 memberList.Add(address);
             }
