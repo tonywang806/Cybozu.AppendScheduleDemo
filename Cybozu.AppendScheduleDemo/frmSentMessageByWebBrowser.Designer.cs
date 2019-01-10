@@ -1,6 +1,6 @@
 ﻿namespace Cybozu.AppendScheduleDemo
 {
-    partial class frmSentMessage
+    partial class frmSentMessageByWebBrowser
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSubject = new System.Windows.Forms.TextBox();
             this.lblSubject = new System.Windows.Forms.Label();
             this.lblContent = new System.Windows.Forms.Label();
@@ -59,6 +59,8 @@
             this.addressesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Signature = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SendDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Addresses = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +72,7 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtSearchUserNM = new System.Windows.Forms.TextBox();
             this.btnSearchUser = new System.Windows.Forms.Button();
+            this.browser = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.addressBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
@@ -115,14 +118,15 @@
             this.txtContent.Margin = new System.Windows.Forms.Padding(4);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
-            this.txtContent.Size = new System.Drawing.Size(734, 262);
+            this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtContent.Size = new System.Drawing.Size(734, 121);
             this.txtContent.TabIndex = 2;
             // 
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.lblAddress.Location = new System.Drawing.Point(28, 391);
+            this.lblAddress.Location = new System.Drawing.Point(30, 232);
             this.lblAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(40, 16);
@@ -135,10 +139,11 @@
             this.listAddresses.DisplayMember = "UserName";
             this.listAddresses.FormattingEnabled = true;
             this.listAddresses.ItemHeight = 16;
-            this.listAddresses.Location = new System.Drawing.Point(82, 391);
+            this.listAddresses.Location = new System.Drawing.Point(84, 232);
             this.listAddresses.Margin = new System.Windows.Forms.Padding(4);
             this.listAddresses.Name = "listAddresses";
-            this.listAddresses.Size = new System.Drawing.Size(285, 196);
+            this.listAddresses.ScrollAlwaysVisible = true;
+            this.listAddresses.Size = new System.Drawing.Size(285, 148);
             this.listAddresses.TabIndex = 3;
             this.listAddresses.ValueMember = "UserId";
             // 
@@ -154,7 +159,7 @@
             // 
             // btnAddressAppend
             // 
-            this.btnAddressAppend.Location = new System.Drawing.Point(396, 439);
+            this.btnAddressAppend.Location = new System.Drawing.Point(398, 280);
             this.btnAddressAppend.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddressAppend.Name = "btnAddressAppend";
             this.btnAddressAppend.Size = new System.Drawing.Size(112, 31);
@@ -165,7 +170,7 @@
             // 
             // btnAddressDelete
             // 
-            this.btnAddressDelete.Location = new System.Drawing.Point(396, 506);
+            this.btnAddressDelete.Location = new System.Drawing.Point(398, 347);
             this.btnAddressDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddressDelete.Name = "btnAddressDelete";
             this.btnAddressDelete.Size = new System.Drawing.Size(112, 31);
@@ -180,11 +185,12 @@
             this.listUsers.DisplayMember = "UserName";
             this.listUsers.FormattingEnabled = true;
             this.listUsers.ItemHeight = 16;
-            this.listUsers.Location = new System.Drawing.Point(531, 455);
+            this.listUsers.Location = new System.Drawing.Point(533, 296);
             this.listUsers.Margin = new System.Windows.Forms.Padding(4);
             this.listUsers.Name = "listUsers";
+            this.listUsers.ScrollAlwaysVisible = true;
             this.listUsers.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listUsers.Size = new System.Drawing.Size(285, 132);
+            this.listUsers.Size = new System.Drawing.Size(285, 84);
             this.listUsers.TabIndex = 3;
             this.listUsers.ValueMember = "UserId";
             // 
@@ -203,7 +209,7 @@
             this.listDept.DataSource = this.organizationsBindingSource;
             this.listDept.DisplayMember = "Name";
             this.listDept.FormattingEnabled = true;
-            this.listDept.Location = new System.Drawing.Point(531, 421);
+            this.listDept.Location = new System.Drawing.Point(533, 262);
             this.listDept.Margin = new System.Windows.Forms.Padding(4);
             this.listDept.Name = "listDept";
             this.listDept.Size = new System.Drawing.Size(285, 24);
@@ -219,7 +225,7 @@
             // 
             this.btnSendMessage.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnSendMessage.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.btnSendMessage.Location = new System.Drawing.Point(314, 611);
+            this.btnSendMessage.Location = new System.Drawing.Point(320, 402);
             this.btnSendMessage.Margin = new System.Windows.Forms.Padding(4);
             this.btnSendMessage.Name = "btnSendMessage";
             this.btnSendMessage.Size = new System.Drawing.Size(124, 44);
@@ -230,7 +236,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(486, 611);
+            this.btnCancel.Location = new System.Drawing.Point(492, 402);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(118, 44);
@@ -283,20 +289,22 @@
             this.sendDateDataGridViewTextBoxColumn,
             this.addressesDataGridViewTextBoxColumn,
             this.contentDataGridViewTextBoxColumn,
-            this.messageIdDataGridViewTextBoxColumn});
+            this.messageIdDataGridViewTextBoxColumn,
+            this.Title,
+            this.Signature});
             this.dgvMessage.DataSource = this.messagesBindingSource;
-            this.dgvMessage.Location = new System.Drawing.Point(825, 61);
+            this.dgvMessage.Location = new System.Drawing.Point(836, 24);
             this.dgvMessage.Name = "dgvMessage";
             this.dgvMessage.RowTemplate.Height = 21;
-            this.dgvMessage.Size = new System.Drawing.Size(667, 526);
+            this.dgvMessage.Size = new System.Drawing.Size(667, 422);
             this.dgvMessage.TabIndex = 6;
-            this.dgvMessage.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMessage_CellContentClick);
+            this.dgvMessage.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMessage_CellContentDoubleClick);
             // 
             // sendDateDataGridViewTextBoxColumn
             // 
             this.sendDateDataGridViewTextBoxColumn.DataPropertyName = "SendDate";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.sendDateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.sendDateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle21;
             this.sendDateDataGridViewTextBoxColumn.HeaderText = "送信日";
             this.sendDateDataGridViewTextBoxColumn.Name = "sendDateDataGridViewTextBoxColumn";
             this.sendDateDataGridViewTextBoxColumn.Width = 200;
@@ -304,9 +312,9 @@
             // addressesDataGridViewTextBoxColumn
             // 
             this.addressesDataGridViewTextBoxColumn.DataPropertyName = "Addresses";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.addressesDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.addressesDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle22;
             this.addressesDataGridViewTextBoxColumn.HeaderText = "宛先";
             this.addressesDataGridViewTextBoxColumn.Name = "addressesDataGridViewTextBoxColumn";
             this.addressesDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -315,9 +323,9 @@
             // contentDataGridViewTextBoxColumn
             // 
             this.contentDataGridViewTextBoxColumn.DataPropertyName = "Content";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.contentDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.contentDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle23;
             this.contentDataGridViewTextBoxColumn.HeaderText = "本文";
             this.contentDataGridViewTextBoxColumn.Name = "contentDataGridViewTextBoxColumn";
             this.contentDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -329,6 +337,20 @@
             this.messageIdDataGridViewTextBoxColumn.HeaderText = "MessageId";
             this.messageIdDataGridViewTextBoxColumn.Name = "messageIdDataGridViewTextBoxColumn";
             this.messageIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // Title
+            // 
+            this.Title.DataPropertyName = "Title";
+            this.Title.HeaderText = "Title";
+            this.Title.Name = "Title";
+            this.Title.Visible = false;
+            // 
+            // Signature
+            // 
+            this.Signature.DataPropertyName = "Signature";
+            this.Signature.HeaderText = "Signature";
+            this.Signature.Name = "Signature";
+            this.Signature.Visible = false;
             // 
             // messagesBindingSource
             // 
@@ -357,16 +379,16 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Addresses";
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle24;
             this.dataGridViewTextBoxColumn2.HeaderText = "宛先";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // Content
             // 
             this.Content.DataPropertyName = "Content";
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Content.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Content.DefaultCellStyle = dataGridViewCellStyle25;
             this.Content.HeaderText = "本文";
             this.Content.Name = "Content";
             // 
@@ -390,14 +412,14 @@
             // 
             // txtSearchUserNM
             // 
-            this.txtSearchUserNM.Location = new System.Drawing.Point(531, 391);
+            this.txtSearchUserNM.Location = new System.Drawing.Point(533, 232);
             this.txtSearchUserNM.Name = "txtSearchUserNM";
             this.txtSearchUserNM.Size = new System.Drawing.Size(176, 23);
             this.txtSearchUserNM.TabIndex = 7;
             // 
             // btnSearchUser
             // 
-            this.btnSearchUser.Location = new System.Drawing.Point(713, 391);
+            this.btnSearchUser.Location = new System.Drawing.Point(715, 232);
             this.btnSearchUser.Name = "btnSearchUser";
             this.btnSearchUser.Size = new System.Drawing.Size(103, 23);
             this.btnSearchUser.TabIndex = 8;
@@ -405,11 +427,25 @@
             this.btnSearchUser.UseVisualStyleBackColor = true;
             this.btnSearchUser.Click += new System.EventHandler(this.btnSearchUser_Click);
             // 
-            // frmSentMessage
+            // browser
+            // 
+            this.browser.Location = new System.Drawing.Point(82, 463);
+            this.browser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.browser.Name = "browser";
+            this.browser.ScriptErrorsSuppressed = true;
+            this.browser.Size = new System.Drawing.Size(1421, 576);
+            this.browser.TabIndex = 9;
+            this.browser.Url = new System.Uri("http://cybozu.chiyodagravure.local/scripts/cbag/ag.exe?page=MyFolderMessageSend&f" +
+        "id=&cp=ml", System.UriKind.Absolute);
+            this.browser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.browser_DocumentCompleted);
+            this.browser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.browser_Navigated);
+            // 
+            // frmSentMessageByWebBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1555, 677);
+            this.ClientSize = new System.Drawing.Size(1555, 1061);
+            this.Controls.Add(this.browser);
             this.Controls.Add(this.btnSearchUser);
             this.Controls.Add(this.txtSearchUserNM);
             this.Controls.Add(this.dgvMessage);
@@ -430,7 +466,7 @@
             this.Controls.Add(this.txtSubject);
             this.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "frmSentMessage";
+            this.Name = "frmSentMessageByWebBrowser";
             this.Text = "frmSentMessage";
             this.Load += new System.EventHandler(this.frmSentMessage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.addressBindingSource)).EndInit();
@@ -478,11 +514,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.TextBox txtSearchUserNM;
+        private System.Windows.Forms.Button btnSearchUser;
+        private System.Windows.Forms.WebBrowser browser;
         private System.Windows.Forms.DataGridViewTextBoxColumn sendDateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn addressesDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn messageIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TextBox txtSearchUserNM;
-        private System.Windows.Forms.Button btnSearchUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Title;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Signature;
     }
 }

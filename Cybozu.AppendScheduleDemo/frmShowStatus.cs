@@ -153,5 +153,17 @@ namespace Cybozu.AppendScheduleDemo
             DialogResult r = m.ShowDialog();
 
         }
+
+        private void btnSearchMessage_Click(object sender, EventArgs e)
+        {
+            frmSearchMessage m = new frmSearchMessage();
+            DialogResult r = m.ShowDialog();
+        }
+
+        private void btnSendMessage2_Clicked(object sender, EventArgs e)
+        {
+            frmSentMessageByWebBrowser m = new frmSentMessageByWebBrowser();
+            DialogResult r = m.ShowDialog();
+        }
     }
 }

@@ -893,6 +893,10 @@ namespace Cybozu.AppendScheduleDemo.Model {
             
             private global::System.Data.DataColumn columnMessageId;
             
+            private global::System.Data.DataColumn columnTitle;
+            
+            private global::System.Data.DataColumn columnSignature;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MessagesDataTable() {
@@ -960,6 +964,22 @@ namespace Cybozu.AppendScheduleDemo.Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn TitleColumn {
+                get {
+                    return this.columnTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn SignatureColumn {
+                get {
+                    return this.columnSignature;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -995,13 +1015,15 @@ namespace Cybozu.AppendScheduleDemo.Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MessagesRow AddMessagesRow(string SendDate, string Addresses, string Content, string MessageId) {
+            public MessagesRow AddMessagesRow(string SendDate, string Addresses, string Content, string MessageId, string Title, string Signature) {
                 MessagesRow rowMessagesRow = ((MessagesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         SendDate,
                         Addresses,
                         Content,
-                        MessageId};
+                        MessageId,
+                        Title,
+                        Signature};
                 rowMessagesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMessagesRow);
                 return rowMessagesRow;
@@ -1028,6 +1050,8 @@ namespace Cybozu.AppendScheduleDemo.Model {
                 this.columnAddresses = base.Columns["Addresses"];
                 this.columnContent = base.Columns["Content"];
                 this.columnMessageId = base.Columns["MessageId"];
+                this.columnTitle = base.Columns["Title"];
+                this.columnSignature = base.Columns["Signature"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1041,6 +1065,10 @@ namespace Cybozu.AppendScheduleDemo.Model {
                 base.Columns.Add(this.columnContent);
                 this.columnMessageId = new global::System.Data.DataColumn("MessageId", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMessageId);
+                this.columnTitle = new global::System.Data.DataColumn("Title", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTitle);
+                this.columnSignature = new global::System.Data.DataColumn("Signature", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSignature);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1417,6 +1445,38 @@ namespace Cybozu.AppendScheduleDemo.Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Title {
+                get {
+                    try {
+                        return ((string)(this[this.tableMessages.TitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'Messages\' にある列 \'Title\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableMessages.TitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Signature {
+                get {
+                    try {
+                        return ((string)(this[this.tableMessages.SignatureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'Messages\' にある列 \'Signature\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableMessages.SignatureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsSendDateNull() {
                 return this.IsNull(this.tableMessages.SendDateColumn);
             }
@@ -1461,6 +1521,30 @@ namespace Cybozu.AppendScheduleDemo.Model {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetMessageIdNull() {
                 this[this.tableMessages.MessageIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsTitleNull() {
+                return this.IsNull(this.tableMessages.TitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetTitleNull() {
+                this[this.tableMessages.TitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsSignatureNull() {
+                return this.IsNull(this.tableMessages.SignatureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetSignatureNull() {
+                this[this.tableMessages.SignatureColumn] = global::System.Convert.DBNull;
             }
         }
         

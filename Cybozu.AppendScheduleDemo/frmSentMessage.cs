@@ -15,7 +15,9 @@ namespace Cybozu.AppendScheduleDemo
     public partial class frmSentMessage : Form
     {
         Base baseInfo;
-        string ThreadId = "2-645157";
+        string ThreadId = "8-667532";
+        int sentcount = 0;
+
         public frmSentMessage()
         {
             InitializeComponent();
@@ -36,8 +38,11 @@ namespace Cybozu.AppendScheduleDemo
             organizationsList.Sort("Name");
             Model.BaseInfoDataSet.OrganizationsRow emptyRow = baseInfoDataSet.Organizations.NewOrganizationsRow();
             emptyRow.Id = "empty";
-            emptyRow.Name = "";
+            emptyRow.Name = "(全員)";
             baseInfoDataSet.Organizations.Rows.Add(emptyRow);
+
+            txtSubject.Text = string.Format("テストメッセージです。{0}", ++sentcount);
+            txtContent.Text = txtSubject.Text;
 
             foreach (Organization org in organizationsList)
             {
@@ -58,9 +63,9 @@ namespace Cybozu.AppendScheduleDemo
                 r.UserName = usr.Name;
                 baseInfoDataSet.Users.Rows.Add(r);
             }
-
             listDept.SelectedValueChanged += new EventHandler(listDept_SelectedValueChanged);
             listUsers.ClearSelected();
+
             #endregion
 
             #region "ThreadInfo初期化"
@@ -149,7 +154,9 @@ namespace Cybozu.AppendScheduleDemo
                 MessageThread thread = new MessageThread();
                 thread.subject = this.txtSubject.Text;
                 thread.confirm = true;
+                thread.is_draft = true;
 
+                StringBuilder sb = new StringBuilder();
                 foreach (DataRow r in addressDataSet.Users.Rows)
                 {
                     Address addr = new Address();
@@ -157,27 +164,34 @@ namespace Cybozu.AppendScheduleDemo
                     addr.name = (string)r["UserName"];
                     addr.confirmed = false;
                     thread.addresses.Add(addr);
+
+                    sb.Append(addr.name +";");
                 }
 
                 Content c = new Content();
-                    //string html_content = @"<div><div style=""font-size: 15.04px; padding: 0.5em 0px;""><table style=""border-color: #2c2c2c; height: 503px;"" border=""1"" width=""1584""><tbody><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">機器名</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">IPアドレス</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">ドライブ</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">空き容量（GB）</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">&nbsp;前回容量</span><span style=""font-size: 18.6667px;"">（GB）</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">使用率</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">使用率推移</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">備考 or 増減のあるフォルダ</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Impostrip</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">192.168.1.33</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">276/299</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">276</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">7.7％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">E:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.50T/1.52T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.50T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.3％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">PC-OneFlow</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.69</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">74.5/99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">74.4</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">25.2％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">56.2/</span>99.9</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">56.5</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">43.7％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↑</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">XMPie−Director</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.87</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">79.7/119</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">79.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">33.0％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">397/399</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">397</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">0.5％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Storage</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.195</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">77.7/99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">77.7</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">21.9％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">332/499</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">313</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">33.4％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">↓</span></td><td>&nbsp;</td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">APL</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.56</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">78.6/99.6</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">78.6</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">21.0％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;<br></span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">99.8/99.9</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">99.8</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">0.1%</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Asura</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.154</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">172/199</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">172</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">13.5％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">74.3/99.9</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">73.7</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">25.6％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">WEB1</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">54.65.201.225</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">67.4/</span>99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">67.4</span></td><td style=""text-align: center;""><span style=""color: #000000; font-size: 14pt;"">32.3％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">121/199</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">123</span></td><td style=""text-align: center;""><span style=""color: #000000; font-size: 14pt;"">39.1％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↑</span></td><td>&nbsp;</td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">CIERTO</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">52.198.155.141</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">33.9/99.6</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">33.8</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">65.9％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td>&nbsp;</td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">1.48/3</span>.90T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">0.73</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">62.0％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><div>&nbsp;<span style=""font-size: 12pt;""><span style=""font-size: 14pt;"">9/8　ストレージ(D:)拡張　2.92T → 3.90T<br></span></span></div><div><span style=""font-size: 12pt;""><span style=""font-size: 14pt;"">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;社内データ一部（Printmedia内）削除</span></span></div></td></tr></tbody></table><div>&nbsp;</div><div>・<span style=""color: #008000;"">使用率75％超</span>&nbsp;：&nbsp;<span style=""font-size: 15.04px;"">対象なし</span><br>・<span style=""color: #ff0000;"">使用率80％超</span>&nbsp;：&nbsp;<span style=""font-size: 15.04px;"">対象なし</span></div></div></div>";
-                    //c.Html_body = html_content;
+                //string html_content = @"<div><div style=""font-size: 15.04px; padding: 0.5em 0px;""><table style=""border-color: #2c2c2c; height: 503px;"" border=""1"" width=""1584""><tbody><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">機器名</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">IPアドレス</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">ドライブ</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">空き容量（GB）</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">&nbsp;前回容量</span><span style=""font-size: 18.6667px;"">（GB）</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">使用率</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">使用率推移</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">備考 or 増減のあるフォルダ</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Impostrip</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">192.168.1.33</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">276/299</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">276</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">7.7％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">E:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.50T/1.52T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.50T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">1.3％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">PC-OneFlow</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.69</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">74.5/99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">74.4</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">25.2％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">56.2/</span>99.9</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">56.5</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">43.7％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↑</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">XMPie−Director</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.87</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">79.7/119</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">79.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">33.0％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">397/399</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">397</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">0.5％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Storage</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.195</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">77.7/99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">77.7</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">21.9％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">332/499</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">313</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">33.4％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">↓</span></td><td>&nbsp;</td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">APL</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.56</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">78.6/99.6</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">78.6</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">21.0％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;<br></span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">99.8/99.9</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">99.8</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">0.1%</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">Asura</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">10.20.2.154</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">172/199</span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">172</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">13.5％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">74.3/99.9</span></span></td><td style=""text-align: center;""><span style=""color: #000000;""><span style=""font-size: 18.6667px;"">73.7</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">25.6％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">WEB1</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">54.65.201.225</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">67.4/</span>99.6</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">67.4</span></td><td style=""text-align: center;""><span style=""color: #000000; font-size: 14pt;"">32.3％</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">→</span></td><td><span style=""font-size: 14pt;"">&nbsp;</span></td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">121/199</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">123</span></td><td style=""text-align: center;""><span style=""color: #000000; font-size: 14pt;"">39.1％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↑</span></td><td>&nbsp;</td></tr><tr><td rowspan=""2""><span style=""font-size: 14pt;"">CIERTO</span></td><td rowspan=""2""><span style=""font-size: 14pt;"">52.198.155.141</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">C:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #0000ff;""><span style=""color: #000000;"">33.9/99.6</span></span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">33.8</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">65.9％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td>&nbsp;</td></tr><tr><td style=""text-align: center;""><span style=""font-size: 14pt;"">D:</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;""><span style=""color: #000000;"">1.48/3</span>.90T</span></td><td style=""text-align: center;""><span style=""font-size: 14pt;"">0.73</span></td><td style=""text-align: center;""><span style=""font-size: 14pt; color: #000000;"">62.0％</span></td><td style=""text-align: center;""><span style=""font-size: 18.6667px;"">↓</span></td><td><div>&nbsp;<span style=""font-size: 12pt;""><span style=""font-size: 14pt;"">9/8　ストレージ(D:)拡張　2.92T → 3.90T<br></span></span></div><div><span style=""font-size: 12pt;""><span style=""font-size: 14pt;"">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;社内データ一部（Printmedia内）削除</span></span></div></td></tr></tbody></table><div>&nbsp;</div><div>・<span style=""color: #008000;"">使用率75％超</span>&nbsp;：&nbsp;<span style=""font-size: 15.04px;"">対象なし</span><br>・<span style=""color: #ff0000;"">使用率80％超</span>&nbsp;：&nbsp;<span style=""font-size: 15.04px;"">対象なし</span></div></div></div>";
+                //c.Html_body = html_content;
 
-                    c.Body = txtContent.Text;
-                    thread.content = c;
-                    #endregion
+                c.Body = txtContent.Text;
+                thread.content = c;
+                #endregion
 
-                    #region "メッセージ送信"
-                    response = msgClient.MessageCreateThreads(thread);
-                    #endregion
+                #region "メッセージ送信"
+                response = msgClient.MessageCreateThreads(thread);
+                Console.WriteLine(response);
+                MessageBox.Show(response.GetSignature());
 
-                    #region "後処理"
-                    if (response != null)
+                #endregion
+
+                #region "後処理"
+                if (response != null)
                     {
-                        MessageBox.Show(string.Format("メッセージID：{0}", response.id), "メッセージ送信しました。");
+                    //MessageBox.Show(string.Format("メッセージID：{0}", response.id), "メッセージ送信しました。");
+                    txtSubject.Text = string.Format("テストメッセージです。{0}", ++sentcount);
+                    txtContent.Text = txtSubject.Text;
 
-                        #region "送信履歴更新"
-                        Model.BaseInfoDataSet.MessagesRow msg = addressDataSet.Messages.NewMessagesRow();
+                    #region "送信履歴更新"
+                    Model.BaseInfoDataSet.MessagesRow msg = addressDataSet.Messages.NewMessagesRow();
                         msg.SendDate = response.creator.date;
                         msg.Addresses = response.addresses.ToString();
                         msg.Content = response.content.Body;
@@ -217,6 +231,9 @@ namespace Cybozu.AppendScheduleDemo
 
         private void listDept_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (listDept.SelectedValue.ToString() == "search") {
+                return;
+            }
 
             if (listDept.SelectedValue.ToString() == "empty")
             {
@@ -255,6 +272,15 @@ namespace Cybozu.AppendScheduleDemo
 
             }
             listUsers.ClearSelected();
+
+            txtSearchUserNM.Clear();
+            if (baseInfoDataSet.Organizations.Rows[0]["Id"].ToString() == "search")
+            {
+                listDept.SelectedValueChanged -= new EventHandler(listDept_SelectedValueChanged);
+                baseInfoDataSet.Organizations.Rows.RemoveAt(0);
+                baseInfoDataSet.Organizations.AcceptChanges();
+                listDept.SelectedValueChanged += new EventHandler(listDept_SelectedValueChanged);
+            }
         }
 
         private void btnAddressAppend_Click(object sender, EventArgs e)
@@ -331,9 +357,42 @@ namespace Cybozu.AppendScheduleDemo
 
         private void dgvMessage_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!dgvMessage.Columns.Contains("MessageId")) return;
-            string[] msgId = dgvMessage.Rows[e.RowIndex].Cells["MessageId"].Value.ToString().Split('-');
+            if (!dgvMessage.Columns.Contains("messageIdDataGridViewTextBoxColumn")) return;
+            string[] msgId = dgvMessage.Rows[e.RowIndex].Cells["messageIdDataGridViewTextBoxColumn"].Value.ToString().Split('-');
             System.Diagnostics.Process.Start(string.Format(@"http://cybozu.chiyodagravure.local/scripts/cbag/ag.exe?page=MyFolderMessageView&mDBID={0}&mDID={1}", msgId[0], msgId[1]));
+        }
+
+        private void btnSearchUser_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtSearchUserNM.Text)) {
+
+                if (baseInfoDataSet.Organizations.Rows[0]["Id"].ToString() != "search")
+                {
+                    listDept.SelectedValueChanged -= new EventHandler(listDept_SelectedValueChanged);
+                    Model.BaseInfoDataSet.OrganizationsRow searchRow = baseInfoDataSet.Organizations.NewOrganizationsRow();
+                    searchRow.Id = "search";
+                    searchRow.Name = "(検索結果)";
+                    baseInfoDataSet.Organizations.Rows.InsertAt(searchRow, 0);
+                    listDept.SelectedIndex = 0;
+
+                    listDept.SelectedValueChanged += new EventHandler(listDept_SelectedValueChanged);
+                }
+                string searchNm = txtSearchUserNM.Text;
+                baseInfoDataSet.Users.Clear();
+
+                UserCollection usersList = baseInfo.Users;
+                foreach (User usr in usersList)
+                {
+                    if (usr.Name.Contains(searchNm))
+                    {
+                        Model.BaseInfoDataSet.UsersRow r = baseInfoDataSet.Users.NewUsersRow();
+                        r.UserId = usr.ID;
+                        r.UserName = usr.Name;
+                        baseInfoDataSet.Users.Rows.Add(r);
+                    }
+                }
+                baseInfoDataSet.Users.AcceptChanges();
+            }
         }
     }
 }

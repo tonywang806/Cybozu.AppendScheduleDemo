@@ -35,6 +35,8 @@
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnGetMessage = new System.Windows.Forms.Button();
             this.btnSentMessage = new System.Windows.Forms.Button();
+            this.btnSearchMessage = new System.Windows.Forms.Button();
+            this.btnSendMessage2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblStatus
@@ -102,11 +104,33 @@
             this.btnSentMessage.UseVisualStyleBackColor = true;
             this.btnSentMessage.Click += new System.EventHandler(this.btnSentMessage_Click);
             // 
+            // btnSearchMessage
+            // 
+            this.btnSearchMessage.Location = new System.Drawing.Point(337, 327);
+            this.btnSearchMessage.Name = "btnSearchMessage";
+            this.btnSearchMessage.Size = new System.Drawing.Size(130, 23);
+            this.btnSearchMessage.TabIndex = 10;
+            this.btnSearchMessage.Text = "Search Meassage";
+            this.btnSearchMessage.UseVisualStyleBackColor = true;
+            this.btnSearchMessage.Click += new System.EventHandler(this.btnSearchMessage_Click);
+            // 
+            // btnSendMessage2
+            // 
+            this.btnSendMessage2.Location = new System.Drawing.Point(473, 327);
+            this.btnSendMessage2.Name = "btnSendMessage2";
+            this.btnSendMessage2.Size = new System.Drawing.Size(219, 23);
+            this.btnSendMessage2.TabIndex = 9;
+            this.btnSendMessage2.Text = "Sent Message by webbrower";
+            this.btnSendMessage2.UseVisualStyleBackColor = true;
+            this.btnSendMessage2.Click += new System.EventHandler(this.btnSendMessage2_Clicked);
+            // 
             // frmShowStatus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 362);
+            this.Controls.Add(this.btnSearchMessage);
+            this.Controls.Add(this.btnSendMessage2);
             this.Controls.Add(this.btnSentMessage);
             this.Controls.Add(this.btnGetMessage);
             this.Controls.Add(this.lblWelcome);
@@ -131,5 +155,7 @@
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnGetMessage;
         private System.Windows.Forms.Button btnSentMessage;
+        private System.Windows.Forms.Button btnSearchMessage;
+        private System.Windows.Forms.Button btnSendMessage2;
     }
 }
