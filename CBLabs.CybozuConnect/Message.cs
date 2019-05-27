@@ -404,6 +404,8 @@ namespace CBLabs.CybozuConnect
 
         private string mime_typeField;
 
+        private string contentBase64Field;
+
         public string id
         {
             get
@@ -449,6 +451,18 @@ namespace CBLabs.CybozuConnect
             set
             {
                 this.mime_typeField = value;
+            }
+        }
+
+        public string contentBase64
+        {
+            get
+            {
+                return this.contentBase64Field;
+            }
+            set
+            {
+                this.contentBase64Field = value;
             }
         }
 
@@ -719,6 +733,60 @@ namespace CBLabs.CybozuConnect
             idParam["thread_id"] = messageId;
             idParam["follow"] = followParam;
             parameters["add_follows"] = idParam;
+            XmlElement result = this.App.Exec("Message", "MessageAddFollows", parameters);
+            return new MessageThread(result.FirstChild);
+        }
+
+        public MessageThread MessageAddFollowsWithFiles(string messageId, string content, List<ContentFile> files)
+        {
+
+            if (files.Count == 0) {
+                return MessageAddFollows(messageId, content);
+            }
+
+            ListDictionary parameters = new ListDictionary();
+            ListDictionary idParam = new ListDictionary();
+            ListDictionary followParam = new ListDictionary();
+            
+            //add_follow
+            parameters["add_follows"] = idParam;
+
+            //add_follow[thread_id]
+            idParam["thread_id"] = messageId;
+            //add_follow>follow[text]
+            followParam["text"] = content;
+
+            foreach (ContentFile file in files)
+            {
+                ListDictionary followfileName = new ListDictionary();
+
+                //add_follow>follow>file[id]
+                string node = string.Format("file id=\"{0}\"", file.id);
+                followfileName["name"] = file.name;
+
+                //add_follow>follow>file
+                followParam[node] = followfileName;
+
+            }
+            //add_follow>follow
+            idParam["follow"] = followParam;
+
+            foreach (ContentFile file in files)
+            {
+                ListDictionary filesParam = new ListDictionary();
+                ListDictionary fileContentParam = new ListDictionary();
+                fileContentParam["innerValue"] = file.contentBase64;
+
+                //add_follow>file[id]
+                string node = string.Format("file id=\"{0}\"", file.id);
+
+                //add_follow>file>content
+                filesParam["content"] = fileContentParam;
+
+                //add_follow>file
+                idParam[node] = filesParam;
+            }
+
             XmlElement result = this.App.Exec("Message", "MessageAddFollows", parameters);
             return new MessageThread(result.FirstChild);
         }

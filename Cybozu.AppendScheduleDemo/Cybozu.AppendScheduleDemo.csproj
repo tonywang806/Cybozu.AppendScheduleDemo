@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationCache.cs" />
+    <Compile Include="frmAddFollow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddFollow.Designer.cs">
+      <DependentUpon>frmAddFollow.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddSchedule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     <Compile Include="Model\ComboBoxCustomItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAddFollow.resx">
+      <DependentUpon>frmAddFollow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddSchedule.resx">
       <DependentUpon>frmAddSchedule.cs</DependentUpon>
     </EmbeddedResource>

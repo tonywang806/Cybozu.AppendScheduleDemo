@@ -469,7 +469,6 @@
         private Model.BaseInfoDataSet addressDataSet;
         private System.Windows.Forms.DataGridView dgvMessage;
         private System.Windows.Forms.BindingSource messagesBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MessageId;
         private System.Windows.Forms.DataGridViewTextBoxColumn SendDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Addresses;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

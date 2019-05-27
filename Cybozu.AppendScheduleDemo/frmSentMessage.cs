@@ -15,7 +15,8 @@ namespace Cybozu.AppendScheduleDemo
     public partial class frmSentMessage : Form
     {
         Base baseInfo;
-        string ThreadId = "8-667532";
+        //string ThreadId = "1-716673";
+        string ThreadId = "";
         int sentcount = 0;
 
         public frmSentMessage()
@@ -111,44 +112,43 @@ namespace Cybozu.AppendScheduleDemo
                 MessageClient msgClient = new MessageClient(app);
                 MessageThread response = null;
 
-                //if (this.ThreadId != string.Empty)
-                //{
-                //    //Threadが存在している場合（Followを追加）
+                if (this.ThreadId != string.Empty)
+                {
+                    //Threadが存在している場合（Followを追加）
 
-                //    #region "メッセージ送信"
-                //    response = msgClient.MessageAddFollows(this.ThreadId,txtContent.Text);
-                //    #endregion
+                    #region "メッセージ送信"
+                    response = msgClient.MessageAddFollows(this.ThreadId, txtContent.Text);
+                    #endregion
 
-                //    #region "後処理"
-                //    if (response != null)
-                //    {
-                //        MessageBox.Show(string.Format("メッセージID：{0}", response.id), "メッセージ送信しました。");
+                    #region "後処理"
+                    if (response != null)
+                    {
+                        MessageBox.Show(string.Format("メッセージID：{0}", response.id), "メッセージ送信しました。");
 
-                //        #region "送信履歴更新"
-                //        ThreadFollowCollection tfcList = msgClient.MessageGetFollows(response.id);
+                        #region "送信履歴更新"
+                        ThreadFollowCollection tfcList = msgClient.MessageGetFollows(response.id);
 
-                //        foreach (ThreadFollow fo in tfcList)
-                //        {
-                //            if (!IsFollowContains(fo.Number)) {
-                //                 Model.BaseInfoDataSet.MessagesRow msg = addressDataSet.Messages.NewMessagesRow();
-                //                msg.SendDate = fo.CreatorField.date;
-                //                msg.From = fo.CreatorField.name;
-                //                msg.Content = fo.Text;
-                //                msg.Number = fo.Number;
+                        foreach (ThreadFollow fo in tfcList)
+                        {
+                            if (!IsFollowContains(fo.Number))
+                            {
+                                Model.BaseInfoDataSet.MessagesRow msg = addressDataSet.Messages.NewMessagesRow();
+                                msg.SendDate = fo.CreatorField.date;
+                                      msg.Content = fo.Text;
+    
+                                addressDataSet.Messages.Rows.Add(msg);
+                            }
 
-                //                addressDataSet.Messages.Rows.Add(msg);
-                //            }
+                        }
 
-                //        }
+                        #endregion
 
-                //        #endregion
-
-                //    }
-                //    #endregion
-                //}
-                //else
-                //{
-                //Threadが存在ない場合（Threadを新規作成）
+                    }
+                    #endregion
+                }
+                else
+                {
+                    //Threadが存在ない場合（Threadを新規作成）
 
                 #region "メッセージを作成"
                 MessageThread thread = new MessageThread();
@@ -203,7 +203,7 @@ namespace Cybozu.AppendScheduleDemo
                     }
                     #endregion
 
-                //}
+                }
 
 
 

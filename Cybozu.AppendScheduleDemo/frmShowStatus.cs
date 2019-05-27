@@ -165,5 +165,11 @@ namespace Cybozu.AppendScheduleDemo
             frmSentMessageByWebBrowser m = new frmSentMessageByWebBrowser();
             DialogResult r = m.ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmAddFollow m = new frmAddFollow();
+            DialogResult r = m.ShowDialog();
+        }
     }
 }

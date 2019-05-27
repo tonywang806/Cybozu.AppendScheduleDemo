@@ -17,10 +17,12 @@ namespace Cybozu.AppendScheduleDemo
         Base baseInfo;
         int sentcount = 0;
 
+        bool isCreateMessage = false;
         bool isRedirected = false;
         string strCreateMessageFormUrl = "http://cybozu.chiyodagravure.local/scripts/cbag/ag.exe?page=MyFolderMessageSend&fid=&cp=ml";
-        bool isRedirecting = false;
-        bool isCreateMessage = false;
+
+        int QueueLength = 0;
+        int QIndex = 0;
 
         public frmSentMessageByWebBrowser()
         {
@@ -31,6 +33,7 @@ namespace Cybozu.AppendScheduleDemo
         {
             App app = ApplicationCache.CybozuApp;
             baseInfo = new Base(app);
+
 
 
             this.txtCreator.Text = ApplicationCache.CybozuApp.User.Name;
@@ -75,13 +78,7 @@ namespace Cybozu.AppendScheduleDemo
 
         }
 
-        private void btnSendMessage_Click(object sender, EventArgs e)
-        {
-            if (isCreateMessage) return;
-
-            //browser.AllowNavigation = false;
-            btnSendMessage.Enabled = false;
-
+        private void SendMessageByWebView() {
             try
             {
                 #region "メッセージを作成"
@@ -157,7 +154,7 @@ namespace Cybozu.AppendScheduleDemo
                         Object resp = element.InvokeMember("click");
                         thread.creator.date = DateTime.Now.ToString();
                         Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine("{0}回目送信完了{1} ",sentcount, DateTime.Now);
+                        Console.WriteLine("{0}回目送信完了{1} ", sentcount, DateTime.Now);
 
                         break;
                     }
@@ -209,9 +206,18 @@ namespace Cybozu.AppendScheduleDemo
             {
                 MessageBox.Show(string.Format("WebException:{0}", ex.Message));
             }
-            finally {
-                //btnSendMessage.Enabled = true;
-            }
+        }
+
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            if (isCreateMessage) return;
+
+            //browser.AllowNavigation = false;
+            btnSendMessage.Enabled = false;
+
+            QueueLength = 5;
+            QIndex = 0;
+            SendMessageByWebView();
 
         }
 
@@ -411,18 +417,18 @@ namespace Cybozu.AppendScheduleDemo
 
         private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            Console.WriteLine("browser_DocumentCompleted");
-
+            //Console.WriteLine("▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽");
+            //Console.WriteLine("browser_DocumentCompleted");
+            //Console.WriteLine("browser.URL:{0}",browser.Url.ToString());
+            //Console.WriteLine("e.URL:{0}",e.Url.ToString());
+            //Console.WriteLine("△△△△△△△△△△△△△△△");
             if (isRedirected)
             {
                 Console.WriteLine("Redirected");
-                isRedirecting = true;
                 browser.Navigate(strCreateMessageFormUrl);
 
             }
             else {
-                Console.WriteLine(browser.Url.ToString());
-
                 HtmlElementCollection elementCollection = browser.Document.GetElementsByTagName("input");
                 foreach (HtmlElement element in elementCollection) {
 
@@ -452,7 +458,7 @@ namespace Cybozu.AppendScheduleDemo
                     }
                 }
 
-                    Console.WriteLine("自動応答処理追加");
+                    //Console.WriteLine("自動応答処理追加");
                     //アラートが表示なら、自動的に閉じるように
                     HtmlElement head = browser.Document.GetElementsByTagName("head")[0];
                     HtmlElement script = browser.Document.CreateElement("script");
@@ -461,7 +467,23 @@ namespace Cybozu.AppendScheduleDemo
                     script.SetAttribute("text", alertBlocker);
                     head.AppendChild(script);
 
-                    btnSendMessage.Enabled = true;
+                //次回送信準備できるかどうかを判定
+                if (browser.Url.ToString().Equals(strCreateMessageFormUrl) & e.Url.ToString().Equals("about:blank")) {
+
+                    Console.WriteLine("---------------------------------------------------------");
+                    Console.WriteLine("{0}回目送信準備完了{1} ", sentcount, DateTime.Now);
+
+                    QIndex++;
+
+                    if (QIndex < QueueLength)
+                    {
+                        SendMessageByWebView();
+                    }
+                    else {
+                        btnSendMessage.Enabled = true;
+                    }
+                }
+
 
             }
         }
