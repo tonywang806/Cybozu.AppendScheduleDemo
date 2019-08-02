@@ -42,7 +42,7 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(100, 19);
             this.txtUser.TabIndex = 1;
-            this.txtUser.Text = "wangTianYi";
+            this.txtUser.Text = "ict.system";
             // 
             // txtPassword
             // 
@@ -50,7 +50,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(100, 19);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.Text = "wangTianYi";
+            this.txtPassword.Text = "ictsystem";
             // 
             // lblUser
             // 

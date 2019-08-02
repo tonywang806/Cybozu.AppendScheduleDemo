@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationCache.cs" />
+    <Compile Include="frmAddFollow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddFollow.Designer.cs">
+      <DependentUpon>frmAddFollow.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddSchedule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,20 +70,58 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSearchMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchMessage.Designer.cs">
+      <DependentUpon>frmSearchMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSentMessageByWebBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSentMessageByWebBrowser.Designer.cs">
+      <DependentUpon>frmSentMessageByWebBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSentMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSentMessage.Designer.cs">
+      <DependentUpon>frmSentMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmShowStatus.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmShowStatus.Designer.cs">
       <DependentUpon>frmShowStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\BaseInfoDataSet.cs">
+      <DependentUpon>BaseInfoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BaseInfoDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BaseInfoDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Model\ComboBoxCustomItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAddFollow.resx">
+      <DependentUpon>frmAddFollow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddSchedule.resx">
       <DependentUpon>frmAddSchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchMessage.resx">
+      <DependentUpon>frmSearchMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSentMessageByWebBrowser.resx">
+      <DependentUpon>frmSentMessageByWebBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSentMessage.resx">
+      <DependentUpon>frmSentMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmShowStatus.resx">
       <DependentUpon>frmShowStatus.cs</DependentUpon>
@@ -92,6 +136,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Model\BaseInfoDataSet.xsc">
+      <DependentUpon>BaseInfoDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Model\BaseInfoDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BaseInfoDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Model\BaseInfoDataSet.xss">
+      <DependentUpon>BaseInfoDataSet.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -328,7 +328,14 @@ namespace CBLabs.CybozuConnect
             {
                 sb.Append(">");
             }
-            sb.Append(string.Format("</{0}>", name));
+            if (name.Contains(" "))
+            {
+                string[] names = name.Split(' ');
+                sb.Append(string.Format("</{0}>", names[0]));
+            }
+            else {
+                sb.Append(string.Format("</{0}>", name));
+            }
         }
     }
 }

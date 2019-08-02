@@ -35,6 +35,9 @@
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnGetMessage = new System.Windows.Forms.Button();
             this.btnSentMessage = new System.Windows.Forms.Button();
+            this.btnSearchMessage = new System.Windows.Forms.Button();
+            this.btnSendMessage2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblStatus
@@ -46,7 +49,7 @@
             this.lblStatus.Multiline = true;
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.lblStatus.Size = new System.Drawing.Size(816, 279);
+            this.lblStatus.Size = new System.Drawing.Size(1052, 279);
             this.lblStatus.TabIndex = 5;
             // 
             // btnGetStatus
@@ -63,7 +66,7 @@
             // btnAddSchedule
             // 
             this.btnAddSchedule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddSchedule.Location = new System.Drawing.Point(744, 327);
+            this.btnAddSchedule.Location = new System.Drawing.Point(980, 327);
             this.btnAddSchedule.Name = "btnAddSchedule";
             this.btnAddSchedule.Size = new System.Drawing.Size(107, 23);
             this.btnAddSchedule.TabIndex = 7;
@@ -77,7 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWelcome.Location = new System.Drawing.Point(21, 9);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(818, 23);
+            this.lblWelcome.Size = new System.Drawing.Size(1054, 23);
             this.lblWelcome.TabIndex = 8;
             this.lblWelcome.Text = "Welcome";
             this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -102,11 +105,44 @@
             this.btnSentMessage.UseVisualStyleBackColor = true;
             this.btnSentMessage.Click += new System.EventHandler(this.btnSentMessage_Click);
             // 
+            // btnSearchMessage
+            // 
+            this.btnSearchMessage.Location = new System.Drawing.Point(337, 327);
+            this.btnSearchMessage.Name = "btnSearchMessage";
+            this.btnSearchMessage.Size = new System.Drawing.Size(130, 23);
+            this.btnSearchMessage.TabIndex = 10;
+            this.btnSearchMessage.Text = "Search Meassage";
+            this.btnSearchMessage.UseVisualStyleBackColor = true;
+            this.btnSearchMessage.Click += new System.EventHandler(this.btnSearchMessage_Click);
+            // 
+            // btnSendMessage2
+            // 
+            this.btnSendMessage2.Location = new System.Drawing.Point(473, 327);
+            this.btnSendMessage2.Name = "btnSendMessage2";
+            this.btnSendMessage2.Size = new System.Drawing.Size(219, 23);
+            this.btnSendMessage2.TabIndex = 9;
+            this.btnSendMessage2.Text = "Sent Message by webbrower";
+            this.btnSendMessage2.UseVisualStyleBackColor = true;
+            this.btnSendMessage2.Click += new System.EventHandler(this.btnSendMessage2_Clicked);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(699, 327);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "AddFollow";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmShowStatus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 362);
+            this.ClientSize = new System.Drawing.Size(1099, 362);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSearchMessage);
+            this.Controls.Add(this.btnSendMessage2);
             this.Controls.Add(this.btnSentMessage);
             this.Controls.Add(this.btnGetMessage);
             this.Controls.Add(this.lblWelcome);
@@ -131,5 +167,8 @@
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnGetMessage;
         private System.Windows.Forms.Button btnSentMessage;
+        private System.Windows.Forms.Button btnSearchMessage;
+        private System.Windows.Forms.Button btnSendMessage2;
+        private System.Windows.Forms.Button button1;
     }
 }
