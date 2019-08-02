@@ -1,7 +1,7 @@
-# Cybozu.AppendScheduleDemo
+# Cybozu API
 ## 概要
 
-Cybozu社がご提供する「CBLabs.CybozuConnect」で予定追加機能を実現するアプリケーションです。
+Cybozu社がご提供する「CBLabs.CybozuConnect」で拡張したAPIです。
 
 ## ライセンス
 
